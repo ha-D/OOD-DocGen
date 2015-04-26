@@ -1,85 +1,151 @@
-\documentclass{article}
-
-\usepackage{tabularx}
-\usepackage{multirow}
-\usepackage{enumitem}
-\usepackage{xepersian}
-\settextfont[ExternalLocation]{nazli_0.ttf}
-
 \makeatletter
 \newcommand*{\compress}{\@minipagetrue}
 \makeatother
 
-\begin{document}
-
 {{#each subsystems}}
 {{#each usecases}}
-\newpage
-\begin{center}
-\def\arraystretch{1.5}%
-\begin{tabularx}{\textwidth}{|r|X|}
-\hline
-\textbf{مورد کاربرد}
-&
-{{title}}
+	\newpage
+	\begin{center}
+		\def\arraystretch{1.5}%
+		\begin{tabularx}{\textwidth}{|r|X|}
+			\hline
+			\textbf{مورد کاربرد}
+			&
+				{{title}}
 
-\\ \hline
+			\\ \hline
 
-\textbf{شماره}
-&
-{{#inc @index}}{{/inc}}
+			\textbf{شماره}
+			&
+				{{#inc @index}}{{/inc}}
 
-\\ \hline
+			\\ \hline
 
-\textbf{توصیف اجمالی}
-&
-{{description}}
+			\textbf{توصیف اجمالی}
+			&
+				{{description}}
 
-\\ \hline
+			\\ \hline
 
-\textbf{عامل اصلی}
-&
-{{#each primaryActors}}{{#if @index}}، {{/if}}{{this}}{{/each}}
+			\textbf{عامل اصلی}
+			&
+				{{#each primaryActors}}{{#if @index}}، {{/if}}{{this}}{{else}}ندارد{{/each}}
 
-\\ \hline
+			\\ \hline
 
-\textbf{عامل فرعی}
-&
-{{#each secondaryActors}}{{#if @index}}، {{/if}}{{this}}{{/each}}
+			\textbf{عامل فرعی}
+			&
+				{{#each secondaryActors}}{{#if @index}}، {{/if}}{{this}}{{else}}ندارد{{/each}}
 
-\\ \hline
-
-
-\multirow{ {{preconditions.length}} }{*}{
-	\textbf{شرایط اولیه}
-}
-&
-{{#each preconditions}}
-{{#if @index}} \\ &{{/if}}
-{{this}}{{/each}}
-
-\\ \hline
+			\\ \hline
 
 
-\textbf{روند اصلی}
-&
-\compress
-{{#flow mainflow}}{{/flow}}
-\\ \hline
+			\multirow{ {{preconditions.length}} }{*}{
+				\textbf{شرایط اولیه}
+			}
+			&
+				{{#each preconditions}}
+				{{#if @index}} \\ &{{/if}}
+				{{this}}{{else}}ندارد{{/each}}
 
-\multirow{2}{*}{
-	\textbf{شرایط نهایی}
-}
-&
-{{#each postconditions}}
-{{#if @index}} \\ &{{/if}}
-{{this}}{{/each}}
+			\\ \hline
 
-\\ \hline
-\end{tabularx}
-\end{center}
 
+			\textbf{روند اصلی}
+			&
+			\compress
+				{{#flow mainflow}}{{/flow}}
+			\\ \hline
+
+			\multirow{ {{postconditions.length}} }{*}{
+				\textbf{شرایط نهایی}
+			}
+			&
+				{{#each postconditions}}
+				{{#if @index}} \\ &{{/if}}
+				{{this}}{{else}}ندارد{{/each}}
+
+			\\ \hline
+
+			\multirow{ {{alternatives.length}} }{*}{
+				\textbf{روند جایگزین}
+			}
+			&
+				{{#each alternatives}}
+				{{#if @index}} \\ &{{/if}}
+				{{this.title}}{{else}}ندارد{{/each}}
+
+			\\ \hline
+		\end{tabularx}
+	\end{center}
+
+	{{#each alternatives}}
+	\newpage
+	\begin{center}
+		\def\arraystretch{1.5}%
+		\begin{tabularx}{\textwidth}{|r|X|}
+			\hline
+			\textbf{روند جایگزین}
+			&
+				 {{../title}}: {{title}}
+
+			\\ \hline
+
+			\textbf{شماره}
+			&
+				{{#inc @../index}}{{/inc}}.{{#inc @index}}{{/inc}}
+
+			\\ \hline
+
+			\textbf{توصیف اجمالی}
+			&
+				{{description}}
+
+			\\ \hline
+
+			\textbf{عامل اصلی}
+			&
+				{{#each primaryActors}}{{#if @index}}، {{/if}}{{this}}{{else}}ندارد{{/each}}
+
+			\\ \hline
+
+			\textbf{عامل فرعی}
+			&
+				{{#each secondaryActors}}{{#if @index}}، {{/if}}{{this}}{{else}}ندارد{{/each}}
+
+			\\ \hline
+
+
+			\multirow{ {{preconditions.length}} }{*}{
+				\textbf{شرایط اولیه}
+			}
+			&
+				{{#each preconditions}}
+				{{#if @index}} \\ &{{/if}}
+				{{this}}{{else}}ندارد{{/each}}
+
+			\\ \hline
+
+
+			\textbf{روند اصلی}
+			&
+			\compress
+				{{#flow mainflow}}{{/flow}}
+			\\ \hline
+
+			\multirow{ {{postconditions.length}} }{*}{
+				\textbf{شرایط نهایی}
+			}
+			&
+				{{#each postconditions}}
+				{{#if @index}} \\ &{{/if}}
+				{{this}}{{/each}}
+
+			\\ \hline
+		\end{tabularx}
+	\end{center}
+
+	{{/each}}
 
 {{/each}}
 {{/each}}
-\end{document}

@@ -160,7 +160,11 @@ function UseCasePageCtrlImpl ($scope, $http, $timeout, $mdDialog, store) {
 
 		function renderPart(part) {
 			if (typeof(part) == "string") {
-				return getSnippet(part) || part;
+				var snip = getSnippet(part);
+				if (snip) {
+					return renderPart(snip);
+				}
+				return part;
 			} else if (typeof(part) == 'object') {
 				for (var key in part) {
 					part[key] = renderPart(part[key]);	
@@ -170,7 +174,7 @@ function UseCasePageCtrlImpl ($scope, $http, $timeout, $mdDialog, store) {
 			return part;
 		}
 
-		return renderPart($scope.data.subsystems);
+		return renderPart(angular.copy($scope.data.subsystems));
 	};
 
 	$scope.createTexLink = function () {
@@ -240,6 +244,16 @@ function UseCaseDetailsCtrl ($scope, $mdDialog, usecase) {
 
 	$scope.removePostcondition = function (itemIndex) {
 		$scope.usecase.postconditions.splice(itemIndex, 1);
+	};
+
+	$scope.addAlternative = function (event) {
+		var alternative = event.target.value;
+		event.target.value = "";
+		$scope.usecase.alternatives.push(alternative);
+	};
+
+	$scope.removeAlternative = function (itemIndex) {
+		$scope.usecase.alternatives.splice(itemIndex, 1);
 	};
 
 	$scope.addFlow = function (event, parentFlow) {
