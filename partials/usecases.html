@@ -1,5 +1,5 @@
 <div class="b-usecase" ng-controller="UseCasePageCtrl">
- 	<div class="subsystem" ng-repeat="subsystem in subsystems track by $index">
+ 	<div class="subsystem" ng-repeat="subsystem in data.subsystems track by $index">
  		<h3>{{ subsystem.name }}</h3>
 		<ul ng-sortable="configFactory($index)" >
 			<li class="usecase" 
@@ -28,7 +28,7 @@
 		<md-button ng-click="newSubsystem()">new subsystem</md-button>
 		<div style="margin-left: auto;">
 			<md-button class="md-raised md-primary"  ng-click="openEditDialog()">Edit Data</md-button>
-			<md-button class="md-raised md-primary"  ng-click="openEditDialog()">Edit Variables</md-button>
+			<md-button class="md-raised md-primary"  ng-click="openSnippetEditDialog()">Edit Snippets</md-button>
 			<md-button class="md-raised md-primary"  ng-click="createTexLink()">Render TEX</md-button>
 			<a ng-if="texLink" ng-href="data:text/plain;charset=UTF-8,{{ texLink }}" download="usecase.tex" target="_blank" ng-click="clearTexLink()"> Download Tex File</a>
 		</div>

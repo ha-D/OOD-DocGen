@@ -1,61 +1,9 @@
 var app = angular.module('myApp');
 
 function UseCasePageCtrlImpl ($scope, $http, $timeout, $mdDialog, store) {
-
-	$scope.subsystems2 = [
-		{ 
-			name: 'firstsubsystem', 
-			usecases: [
-				{ 
-				  title: 'Login to the system', 
-				  description: 'قرار اس از سیستم خروج کند', 
-				  primaryActors: ['user'],
-				  secondaryActors: [],
-				  preconditions: [],
-				  postconditions: [],
-				  mainflow: [],
-				  alternatives: []
-				},
-				{ 
-				  title: 'Logout from the system', 
-				  description: 'قرار اس از سیستم خروج کند', 
-				  primaryActors: ['user'],
-				  secondaryActors: [],
-				  preconditions: [],
-				  postconditions: [],
-				  mainflow: [],
-				  alternatives: []
-				}
-			]
-		},
-		{ 
-			name: 'secondsubsystem',
-			usecases: [
-				{ 
-				  title: 'Do sth important', 
-				  description: 'قرار اس از سیستم خروج کند', 
-				  primaryActors: ['user'],
-				  secondaryActors: [],
-				  precondtions: [],
-				  postconditions: [],
-				  mainflow: [],
-				  alternatives: []
-				},
-				{ 
-				  title: 'Explode everything', 
-				  description: 'قرار اس از سیستم خروج کند', 
-				  primaryActors: ['user'],
-				  secondaryActors: [],
-				  precondtions: [],
-				  postconditions: [],
-				  mainflow: [],
-				  alternatives: []
-				}
-			]
-		}
-	];
-
 	$scope.dragEnabled = true;
+	
+	$scope.data = {};
 
 	var configCache = {};
 	$scope.configFactory = function (subsystemIndex) {
@@ -77,15 +25,6 @@ function UseCasePageCtrlImpl ($scope, $http, $timeout, $mdDialog, store) {
 
 		configCache[subsystemIndex] = newConfig;
 		return newConfig;
-	};
-	
-
-	$scope.createSubSystem = function (name) {
-		var subsystem = {
-			name: name,
-			usecases: []
-		};
-		$scope.subsystems.push(subsystem);
 	};
 
 	$scope.openUsecaseForm = function (usecase) {
@@ -123,7 +62,11 @@ function UseCasePageCtrlImpl ($scope, $http, $timeout, $mdDialog, store) {
 	};
 
 	$scope.newSubsystem = function () {
-		$scope.subsystems.push({name: $scope.newSubsystemName, usecases: []});
+		if (!$scope.data.subsystems) {
+			$scope.data.subsystems = [];
+		}
+
+		$scope.data.subsystems.push({name: $scope.newSubsystemName, usecases: []});
 		$scope.newSubsystemName = "";
 		$scope.save();
 	};
@@ -134,9 +77,9 @@ function UseCasePageCtrlImpl ($scope, $http, $timeout, $mdDialog, store) {
 						.ok("Yes")
 						.cancel("No");
 		$mdDialog.show(confirm).then(function () {
-			var index = $scope.subsystems.indexOf(subsystem);
+			var index = $scope.data.subsystems.indexOf(subsystem);
 			if (index !== -1) {
-				$scope.subsystems.splice(index, 1);
+				$scope.data.subsystems.splice(index, 1);
 			}
 		});
 	};
@@ -145,20 +88,60 @@ function UseCasePageCtrlImpl ($scope, $http, $timeout, $mdDialog, store) {
 		return $mdDialog.show({
 			templateUrl: 'partials/usecase_edit.html',
 			locals: {
-				data: $scope.subsystems
+				data: $scope.data
 			},
 			controller: 'UseCaseEditJSONCtrl'
 		}).then(function (data) {
-			$scope.subsystems = data;
+			$scope.data = data;
 			$scope.save();
 		});
+	};
+
+	$scope.openSnippetEditDialog = function () {
+		return $mdDialog.show({
+			templateUrl: 'partials/usecase_edit.html',
+			locals: {
+				data: $scope.data.snippets
+			},
+			controller: 'UseCaseEditJSONCtrl'
+		}).then(function (data) {
+			$scope.data.snippets = data;
+			$scope.save();
+		});
+	};
+
+
+	$scope.renderSubsystems = function() {
+		var snippets = $scope.data.snippets;
+
+		function getSnippet(val) {
+			if (val && val[0] == '@') {
+				return snippets[val.slice(1)];
+			}
+		}
+
+		function renderPart(part) {
+			if (typeof(part) == "string") {
+				return getSnippet(part) || part;
+			} else if (typeof(part) == 'object') {
+				for (var key in part) {
+					part[key] = renderPart(part[key]);	
+				}
+				return part;
+			}
+			return part;
+		}
+
+		return renderPart($scope.data.subsystems);
 	};
 
 	$scope.createTexLink = function () {
 		$http.get('partials/usecase.tex').success(function (source) {
 			var template = Handlebars.compile(source);
-			var content = template({subsystems: $scope.subsystems});
-			// var content = template({sub});
+			var subsystems = $scope.renderSubsystems();
+			console.log(subsystems);
+			var content = template({subsystems: subsystems});
+
 			$scope.texContent = content;
 			// var win = window.open("", "Title", "toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=780, height=200, top="+(screen.height-400)+", left="+(screen.width-840));
 			// win.document.body.innerHTML = "<p>" + content + "</p>";
@@ -171,15 +154,19 @@ function UseCasePageCtrlImpl ($scope, $http, $timeout, $mdDialog, store) {
 	};
 
 	$scope.save = function () {
-		store.save({key: 'subsystems', subsystems: $scope.subsystems});
+		store.save({key: 'subsystems', subsystems: $scope.data.subsystems, snippets: $scope.data.snippets});
 	};
 
 	$scope.load = function() {
 		store.get('subsystems', function (data) {
 			if (data) {
-				$scope.subsystems = data.subsystems;	
+				$scope.data.subsystems = data.subsystems;
+				$scope.data.snippets = data.snippets;
 			} else {
-				$scope.subsystems = [];
+				$scope.data = {
+					subsystems: [],
+					snippets: {}
+				};
 			}
 		});
 	};
