@@ -215,7 +215,11 @@ function UseCasePageCtrlImpl ($scope, $http, $timeout, $mdDialog, store) {
 
 	$scope.load = function() {
 		store.get('subsystems', function (data) {
-			$scope.subsystems = data.subsystems;
+			if (data) {
+				$scope.subsystems = data.subsystems;	
+			} else {
+				$scope.subsystems = [];
+			}
 		});
 	};
 
