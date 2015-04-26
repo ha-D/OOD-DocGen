@@ -17,7 +17,7 @@
 		</section>
 	</div>
 
-	<!-- <pre id="texContainer" style="display:inline-block; vertical-align:top">{{ texContent }}</pre> -->
+	<pre id="texContainer" style="display:inline-block; vertical-align:top">{{ texContent }}</pre>
 	
 	<div class="bottom-panel" layout="row">
 		<md-input-container >
@@ -28,6 +28,7 @@
 		<md-button ng-click="newSubsystem()">new subsystem</md-button>
 		<div style="margin-left: auto;">
 			<md-button class="md-raised md-primary"  ng-click="openEditDialog()">Edit Data</md-button>
+			<md-button class="md-raised md-primary"  ng-click="openEditDialog()">Edit Variables</md-button>
 			<md-button class="md-raised md-primary"  ng-click="createTexLink()">Render TEX</md-button>
 			<a ng-if="texLink" ng-href="data:text/plain;charset=UTF-8,{{ texLink }}" download="usecase.tex" target="_blank" ng-click="clearTexLink()"> Download Tex File</a>
 		</div>

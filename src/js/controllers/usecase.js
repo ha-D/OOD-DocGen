@@ -69,7 +69,6 @@ function UseCasePageCtrlImpl ($scope, $http, $timeout, $mdDialog, store) {
 			disabled: !$scope.dragEnabled,
 			onSort: function(event) {
 				var models = event.models;				
-				console.log($scope.subsystems);
 				$timeout(function() {
 					$scope.save();
 				});

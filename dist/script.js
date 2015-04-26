@@ -107,7 +107,6 @@ function UseCasePageCtrlImpl ($scope, $http, $timeout, $mdDialog, store) {
 			disabled: !$scope.dragEnabled,
 			onSort: function(event) {
 				var models = event.models;				
-				console.log($scope.subsystems);
 				$timeout(function() {
 					$scope.save();
 				});
@@ -299,4 +298,25 @@ function UseCaseEditJSONCtrl ($scope, $mdDialog, $mdToast, data) {
 
 app.controller('UseCasePageCtrl',['$scope', '$http', '$timeout', '$mdDialog', UseCasePageCtrl]);
 app.controller('UseCaseDetailsCtrl',['$scope', '$mdDialog', 'usecase', UseCaseDetailsCtrl]);
-app.controller('UseCaseEditJSONCtrl',['$scope', '$mdDialog', '$mdToast', 'data', UseCaseEditJSONCtrl]);
+app.controller('UseCaseEditJSONCtrl',['$scope', '$mdDialog', '$mdToast', 'data', UseCaseEditJSONCtrl]);;Handlebars.registerHelper('flow', function(flows, options) {
+	var out = "";
+	function addFlow(flows) {
+		out += "\\begin{enumerate}[itemsep=0pt,label*=\\arabic*.]\n";
+
+		for(var i=0; i<flows.length; i++) {
+			out += "\\item " +  flows[i].text + "\n";
+			if (flows[i].subflow && flows[i].subflow.length) {
+				addFlow(flows[i].subflow);
+			}
+		}
+
+		out += "\\end{enumerate}\n";
+	}
+
+  	addFlow(flows);
+  	return out;
+});
+
+Handlebars.registerHelper('inc', function(val) {
+  	return val + 1;
+});

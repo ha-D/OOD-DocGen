@@ -1,46 +1,82 @@
 \documentclass{article}
 
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{enumitem}
 \usepackage{xepersian}
+\settextfont[ExternalLocation]{nazli_0.ttf}
+
+\makeatletter
+\newcommand*{\compress}{\@minipagetrue}
+\makeatother
 
 \begin{document}
+
 {{#each subsystems}}
 {{#each usecases}}
 \newpage
 \begin{center}
-\begin{tabular}{|>{\raggedleft\arraybackslash}p{3cm}|>{\raggedleft\arraybackslash}p{5cm}|>{\raggedleft\arraybackslash}p{5cm}|}
+\def\arraystretch{1.5}%
+\begin{tabularx}{\textwidth}{|r|X|}
 \hline
-مورد استفاده &
-\multicolumn{2}{|>{\raggedleft\arraybackslash}p{10cm}|}{
+\textbf{مورد کاربرد}
+&
 {{title}}
-}\\
-\hline
-شماره &
-\multicolumn{2}{|>{\raggedleft\arraybackslash}p{10cm}|}{
-{{@index}}
-}\\
-\hline
-توصیف اجمالی
-\multicolumn{2}{|>{\raggedleft\arraybackslash}p{10cm}|}{
+
+\\ \hline
+
+\textbf{شماره}
+&
+{{#inc @index}}{{/inc}}
+
+\\ \hline
+
+\textbf{توصیف اجمالی}
+&
 {{description}}
-}\\
-\hline
-عامل اصلی
-\multicolumn{2}{|>{\raggedleft\arraybackslash}p{10cm}|}{
+
+\\ \hline
+
+\textbf{عامل اصلی}
+&
 {{#each primaryActors}}{{#if @index}}، {{/if}}{{this}}{{/each}}
-}\\
-\hline
-عامل فرعی
-\multicolumn{2}{|>{\raggedleft\arraybackslash}p{10cm}|}{
+
+\\ \hline
+
+\textbf{عامل فرعی}
+&
 {{#each secondaryActors}}{{#if @index}}، {{/if}}{{this}}{{/each}}
-}\\
-\hline
-شرایط اولیه
-\multicolumn{2}{|>{\raggedleft\arraybackslash}p{10cm}|}{
-{{#each precondition}}
-{{#if @index}}//{{/if}}
+
+\\ \hline
+
+
+\multirow{ {{preconditions.length}} }{*}{
+	\textbf{شرایط اولیه}
+}
+&
+{{#each preconditions}}
+{{#if @index}} \\ &{{/if}}
 {{this}}{{/each}}
-}\\
-\end{tabular}
+
+\\ \hline
+
+
+\textbf{روند اصلی}
+&
+\compress
+{{#flow mainflow}}{{/flow}}
+\\ \hline
+
+\multirow{2}{*}{
+	\textbf{شرایط نهایی}
+}
+&
+{{#each postconditions}}
+{{#if @index}} \\ &{{/if}}
+{{this}}{{/each}}
+
+\\ \hline
+\end{tabularx}
 \end{center}
 
 
