@@ -1,0 +1,35 @@
+<div class="b-usecase" ng-controller="UseCasePageCtrl">
+ 	<div class="subsystem" ng-repeat="subsystem in subsystems track by $index">
+ 		<h3>{{ subsystem.name }}</h3>
+		<ul ng-sortable="configFactory($index)" >
+			<li class="usecase" 
+				ng-click="openUsecase(usecase)"
+				ng-repeat="usecase in subsystem.usecases track by $index">
+				{{ usecase.title }}
+			</li>
+		</ul>
+		<!-- <md-button ng-click="newUsecase(subsystem)">new usecase</md-button>
+		<md-button ng-click="deleteSubsystem(subsystem)">delete subsystem</md-button> -->
+		<section layout="row" layout-sm="column" layout-align="center center"
+		>
+		<md-button ng-click="newUsecase(subsystem)"><i class="fa fa-plus" style="color:#666666"></i></md-button>
+		<md-button ng-click="deleteSubsystem(subsystem)"><i class="fa fa-minus" style="color:#666666"></i></md-button>
+		</section>
+	</div>
+
+	<!-- <pre id="texContainer" style="display:inline-block; vertical-align:top">{{ texContent }}</pre> -->
+	
+	<div class="bottom-panel" layout="row">
+		<md-input-container >
+		  <input type="text" 
+		  		ng-model="newSubsystemName"
+		  	    ng-enter="newSubsystem()">
+		</md-input-container>
+		<md-button ng-click="newSubsystem()">new subsystem</md-button>
+		<div style="margin-left: auto;">
+			<md-button class="md-raised md-primary"  ng-click="openEditDialog()">Edit Data</md-button>
+			<md-button class="md-raised md-primary"  ng-click="createTexLink()">Render TEX</md-button>
+			<a ng-if="texLink" ng-href="data:text/plain;charset=UTF-8,{{ texLink }}" download="usecase.tex" target="_blank" ng-click="clearTexLink()"> Download Tex File</a>
+		</div>
+	</div>
+</div>

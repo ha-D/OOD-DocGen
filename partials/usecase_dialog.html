@@ -1,0 +1,107 @@
+<md-dialog flex="percentage" layout-padding class="b-usecase">
+	<md-content class="usecase-form">
+		<md-input-container>
+		  <label>Title</label>
+		  <input type="text" ng-model="usecase.title">
+		</md-input-container>
+		<md-input-container>
+		  <label>Description</label>
+		  <textarea type="textarea" ng-model="usecase.description">
+		  </textarea>
+		</md-input-container>
+
+		 <md-chips 
+		 	ng-model="usecase.primaryActors"
+		 	placeholder="Primary Actors"
+		 	secondary-placeholder="Primary Actors"
+		 	>
+				<md-chip-template>
+					<strong>{{$chip}}</strong>
+				</md-chip-template>
+	    </md-chips>
+
+	    <md-chips 
+		 	ng-model="usecase.secondaryActors"
+		 	placeholder="Secondary Actors"
+		 	secondary-placeholder="Secondary Actors"
+		 	>
+				<md-chip-template>
+					<strong>{{$chip}}</strong>
+				</md-chip-template>
+	    </md-chips>
+
+		
+		<md-content class="part">
+	    	<h3 class="md-subhead">Preconditions</h3>
+		    <md-list>
+		    	<md-list-item ng-repeat="item in usecase.preconditions track by $index">
+		    		 <div class="md-list-item-text">
+		    		 	{{item}}
+		    		 </div>
+		    		 <md-icon  class="fa fa-close close"
+		    		  		   ng-click="removePrecondition($index)"></md-icon>
+		    	</md-list-item>
+		    	<md-input-container class="list-input" >
+				  <input type="text"
+				  	     ng-enter="addPrecondition(event)">
+				</md-input-container>
+			</md-list>
+		</md-content>
+
+		<md-content class="part">
+			<h3 class="md-subhead">Postconditions</h3>
+			<md-list>
+		    	<md-list-item ng-repeat="item in usecase.postconditions track by $index">
+		    		 <div class="md-list-item-text">
+		    		 	{{item}}
+		    		 </div>
+		    		  <md-icon  class="fa fa-close close"
+		    		  		   ng-click="removePostcondition($index)">
+    		  		  </md-icon>
+		    	</md-list-item>
+		    	<md-input-container class="list-input" >
+				  <input type="text" 
+				  	     ng-enter="addPostcondition(event)">
+				</md-input-container>
+			</md-list>
+		</md-content>
+		<md-content class="part" >
+			<h3 class="md-subhead">Main Flow</h3>
+			<div ng-init="flow={subflow: usecase.mainflow}" ng-include="'flow.html'">
+			</div>
+		</md-content>
+		<md-button ng-click="saveAndClose()">Save</md-button>
+	</md-content>
+</md-dialog>
+
+<script type="text/ng-template" id="flow.html">
+	<div class="list" ng-init="parentflow=flow">
+		<div class="list-item" 
+			 ng-repeat="flow in flow.subflow track by $index">
+			 <div class="md-list-item-text">
+			 	{{$index+1}}. {{flow.text}}
+			 </div>
+			 <md-icon class="fa fa-angle-down add"
+			 		   ng-if="!flow.subflow"
+			  		   ng-click="flow.subflow=[]">
+	  		  </md-icon>
+	  		  <md-icon class="fa fa-angle-up add"
+			 		   ng-if="flow.subflow && !flow.subflow.length"
+			  		   ng-click="flow.subflow=undefined">
+	  		  </md-icon>
+		      <md-icon class="fa fa-close close"
+		      		   ng-if="!flow.subflow || !flow.subflow.length"
+			  		   ng-click="removeFlow($index, parentflow)">
+	  		  </md-icon>
+	  		   <div 
+	  		  	class="subflow-part"
+	  		  	ng-if="flow.subflow"
+	  		  	ng-include="'flow.html'">
+	  		  </div>
+		</div>
+		<md-input-container class="list-input" >
+			  <input type="text"
+			  	     ng-enter="addFlow(event, parentflow)">
+		</md-input-container>
+	</div>
+</script>

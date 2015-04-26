@@ -1,0 +1,109 @@
+body {
+	background-color: #f1f8e9;
+}
+.b-usecase {
+	// background-color: rgba(255, 255, 255, 0.2);
+
+
+	.sticky-bottom {
+		position: fixed;
+		bottom: 0px;
+		width: 100%;
+	}
+
+	.bottom-panel {
+		position: fixed;
+		bottom: 0px;
+		width: 100%;
+		min-height: 30px;
+		background-color: #85c34a;
+		color: white;
+
+		md-input-container {
+			padding-bottom: 0px;
+		}
+	}
+
+	.subsystem {
+		display: inline-block;
+		background-color: #c5e1a5;
+		border: 1px solid rgba(220, 255, 255, 0.8);
+		padding: 10px 20px;
+		width: 250px;
+
+		ul {
+			padding: 0px;
+			min-height: 20px;
+		}
+
+		h3 {
+			text-align: center;
+			margin-top: 0px;
+		}
+
+		.md-button {
+			// margin-left: 65px;
+			width: 100%;
+			margin-right: 20px;
+		}
+	}
+
+	.usecase {
+		margin: 10px;
+		padding: 10px;
+		background-color: #aed581;
+		display: block;
+		text-align: center;
+		cursor: pointer;
+		text-shadow: 0.5px 0.5px #eeeeee;
+	}
+
+	.usecase-form {
+		.md-list-item-text {
+			margin-right: auto;
+		}
+		md-list md-icon {
+			margin: 0px;
+			cursor: pointer;
+		}
+		md-icon.close:hover {
+			color:red;
+		}
+		md-icon.add:hover {
+			color:green;
+		}
+
+		.list {
+			.list-item {
+				margin-left: 20px;
+				clear: both;
+			}
+
+			.md-list-item-text {
+				float: left;
+			}
+
+			md-icon {
+				margin: 0px;
+				cursor: pointer;
+				float: right;
+			}
+		}
+
+		.list-input {
+			margin-left: 20px;
+			margin-right: 30px;
+			clear: both;
+		}
+
+		.part {
+			// margin-top: 40px;
+		}
+
+		.subflow-part {
+			clear: both;
+			margin-left: 20px;
+		}
+	}
+	
+}

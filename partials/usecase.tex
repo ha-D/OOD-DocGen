@@ -1,0 +1,49 @@
+\documentclass{article}
+
+\usepackage{xepersian}
+
+\begin{document}
+{{#each subsystems}}
+{{#each usecases}}
+\newpage
+\begin{center}
+\begin{tabular}{|>{\raggedleft\arraybackslash}p{3cm}|>{\raggedleft\arraybackslash}p{5cm}|>{\raggedleft\arraybackslash}p{5cm}|}
+\hline
+مورد استفاده &
+\multicolumn{2}{|>{\raggedleft\arraybackslash}p{10cm}|}{
+{{title}}
+}\\
+\hline
+شماره &
+\multicolumn{2}{|>{\raggedleft\arraybackslash}p{10cm}|}{
+{{@index}}
+}\\
+\hline
+توصیف اجمالی
+\multicolumn{2}{|>{\raggedleft\arraybackslash}p{10cm}|}{
+{{description}}
+}\\
+\hline
+عامل اصلی
+\multicolumn{2}{|>{\raggedleft\arraybackslash}p{10cm}|}{
+{{#each primaryActors}}{{#if @index}}، {{/if}}{{this}}{{/each}}
+}\\
+\hline
+عامل فرعی
+\multicolumn{2}{|>{\raggedleft\arraybackslash}p{10cm}|}{
+{{#each secondaryActors}}{{#if @index}}، {{/if}}{{this}}{{/each}}
+}\\
+\hline
+شرایط اولیه
+\multicolumn{2}{|>{\raggedleft\arraybackslash}p{10cm}|}{
+{{#each precondition}}
+{{#if @index}}//{{/if}}
+{{this}}{{/each}}
+}\\
+\end{tabular}
+\end{center}
+
+
+{{/each}}
+{{/each}}
+\end{document}
