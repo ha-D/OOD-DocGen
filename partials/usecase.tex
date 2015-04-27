@@ -6,6 +6,8 @@
 {{#each subsystems}}
 {{#each usecases}}
 	\newpage
+	\topskip0pt
+	\vspace*{\fill}
 	\begin{center}
 		\def\arraystretch{1.5}%
 		\begin{tabularx}{\textwidth}{|r|X|}
@@ -79,9 +81,12 @@
 			\\ \hline
 		\end{tabularx}
 	\end{center}
+    \vspace*{\fill}
 
 	{{#each alternatives}}
 	\newpage
+	\topskip0pt
+	\vspace*{\fill}
 	\begin{center}
 		\def\arraystretch{1.5}%
 		\begin{tabularx}{\textwidth}{|r|X|}
@@ -145,9 +150,11 @@
 			\\ \hline
 		\end{tabularx}
 	\end{center}
+	\topskip0pt
+    \vspace*{\fill}
 
 	{{/each}}
-	
+
 	{{#incIndex}}{{/incIndex}}
 {{/each}}
 {{/each}}

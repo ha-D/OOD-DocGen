@@ -154,8 +154,28 @@ function UseCasePageCtrlImpl ($scope, $http, $timeout, $mdDialog, store) {
 
 		function getSnippet(val) {
 			if (val && val[0] == '@') {
-				return snippets[val.slice(1)];
+				var strParts = val.split(" ");
+				var snippet = angular.copy(snippets[strParts[0].slice(1)]);
+				if (snippet) {
+					for (var i = 1; i < strParts.length; i++) {
+						snippet = replace(snippet, "@" + i, strParts[i]);
+					}	
+					return snippet;
+				}
 			}
+		}
+
+		function replace(part, k, v) {
+			if (typeof(part) == "string") {
+				var re = new RegExp(k, 'g');
+				return part.replace(re, v);
+			} else if (typeof(part) == 'object') {
+				for (var key in part) {
+					part[key] = replace(part[key], k, v);	
+				}
+				return part;
+			}
+			return part;
 		}
 
 		function renderPart(part) {
