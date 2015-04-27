@@ -70,6 +70,23 @@
 			<div ng-init="flow={subflow: usecase.mainflow}" ng-include="'flow.html'">
 			</div>
 		</md-content>
+		<md-content class="part">
+			<h3 class="md-subhead">Alternative Flows</h3>
+			<md-list>
+		    	<md-list-item ng-repeat="item in usecase.alternatives track by $index">
+		    		 <div class="md-list-item-text">
+		    		 	{{item}}
+		    		 </div>
+		    		  <md-icon  class="fa fa-close close"
+		    		  		   ng-click="removeAlternative($index)">
+    		  		  </md-icon>
+		    	</md-list-item>
+		    	<md-input-container class="list-input" >
+				  <input type="text" 
+				  	     ng-enter="addAlternative(event)">
+				</md-input-container>
+			</md-list>
+		</md-content>
 		<md-button ng-click="saveAndClose()">Save</md-button>
 	</md-content>
 </md-dialog>
