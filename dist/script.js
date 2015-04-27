@@ -299,7 +299,25 @@ function UseCaseEditJSONCtrl ($scope, $mdDialog, $mdToast, data) {
 
 app.controller('UseCasePageCtrl',['$scope', '$http', '$timeout', '$mdDialog', UseCasePageCtrl]);
 app.controller('UseCaseDetailsCtrl',['$scope', '$mdDialog', 'usecase', UseCaseDetailsCtrl]);
-app.controller('UseCaseEditJSONCtrl',['$scope', '$mdDialog', '$mdToast', 'data', UseCaseEditJSONCtrl]);;Handlebars.registerHelper('flow', function(flows, options) {
+app.controller('UseCaseEditJSONCtrl',['$scope', '$mdDialog', '$mdToast', 'data', UseCaseEditJSONCtrl]);;var usecaseIndex = 1;
+
+Handlebars.registerHelper('reset', function() {
+  	usecaseIndex = 1;
+});
+
+Handlebars.registerHelper('incIndex', function() {
+  	usecaseIndex += 1;
+});
+
+Handlebars.registerHelper('index', function() {
+  	return usecaseIndex;
+});
+
+Handlebars.registerHelper('inc', function(val) {
+  	return val + 1;
+});
+
+Handlebars.registerHelper('flow', function(flows, options) {
 	var out = "";
 	function addFlow(flows) {
 		out += "\\begin{enumerate}[itemsep=0pt,label*=\\arabic*.]\n";
@@ -316,8 +334,4 @@ app.controller('UseCaseEditJSONCtrl',['$scope', '$mdDialog', '$mdToast', 'data',
 
   	addFlow(flows);
   	return out;
-});
-
-Handlebars.registerHelper('inc', function(val) {
-  	return val + 1;
 });

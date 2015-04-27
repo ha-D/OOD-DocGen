@@ -1,3 +1,21 @@
+var usecaseIndex = 1;
+
+Handlebars.registerHelper('reset', function() {
+  	usecaseIndex = 1;
+});
+
+Handlebars.registerHelper('incIndex', function() {
+  	usecaseIndex += 1;
+});
+
+Handlebars.registerHelper('index', function() {
+  	return usecaseIndex;
+});
+
+Handlebars.registerHelper('inc', function(val) {
+  	return val + 1;
+});
+
 Handlebars.registerHelper('flow', function(flows, options) {
 	var out = "";
 	function addFlow(flows) {
@@ -15,8 +33,4 @@ Handlebars.registerHelper('flow', function(flows, options) {
 
   	addFlow(flows);
   	return out;
-});
-
-Handlebars.registerHelper('inc', function(val) {
-  	return val + 1;
 });
