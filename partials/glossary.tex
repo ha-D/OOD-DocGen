@@ -1,0 +1,27 @@
+{{#each wordCategories}}
+{{letter}}
+{{#each words}}
+\begin{center}
+	\def\arraystretch{1.5}%
+	\begin{tabularx}{\textwidth}{|r|X|}
+		\hline
+		\textbf{واٰژه}
+		&
+			{{word}}
+		\\ \hline
+		\textbf{توضیح}
+		&
+			{{definition}}
+		\\ \hline
+		\textbf{هم‌معنی}
+		&
+			{{#each synonym}}{{#if @index}}، {{/if}}{{this}}{{else}}ندارد{{/each}}
+		\\ \hline
+		\textbf{هم‌آوا}
+		&
+			{{#each antonym}}{{#if @index}}، {{/if}}{{this}}{{else}}ندارد{{/each}}
+		\\ \hline
+	\end{tabularx}
+\end{center}
+{{/each}}
+{{/each}}
