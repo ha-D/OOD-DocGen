@@ -163,7 +163,6 @@ function UseCasePageCtrlImpl ($scope, $http, $timeout, $mdDialog, store) {
 		$http.get('partials/usecase.tex').success(function (source) {
 			var template = Handlebars.compile(source);
 			var subsystems = $scope.renderSubsystems();
-			console.log(subsystems);
 			var content = template({subsystems: subsystems});
 
 			$scope.texContent = content;
@@ -178,11 +177,11 @@ function UseCasePageCtrlImpl ($scope, $http, $timeout, $mdDialog, store) {
 	};
 
 	$scope.save = function () {
-		store.save({key: 'subsystems', subsystems: $scope.data.subsystems, snippets: $scope.data.snippets});
+		store.save({key: 'usecase', subsystems: $scope.data.subsystems, snippets: $scope.data.snippets});
 	};
 
 	$scope.load = function() {
-		store.get('subsystems', function (data) {
+		store.get('usecase', function (data) {
 			if (data) {
 				$scope.data.subsystems = data.subsystems;
 				$scope.data.snippets = data.snippets;
@@ -199,8 +198,7 @@ function UseCasePageCtrlImpl ($scope, $http, $timeout, $mdDialog, store) {
 }
 
 function UseCasePageCtrl ($scope, $http, $timeout, $mdDialog) {
-	$scope.testlist = ["hasdsad", "asdad", 'asd'];
-	var store =  new Lawnchair({name:'usecase'}, function(store) {
+	var store =  new Lawnchair({name:'docgen'}, function(store) {
 		UseCasePageCtrlImpl($scope, $http, $timeout, $mdDialog, this);
 	});
 }

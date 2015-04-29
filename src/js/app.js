@@ -6,7 +6,8 @@ var app = angular.module('myApp', [
 
 app.config(['$routeProvider', function($routeProvider) {
 	$routeProvider
-	.when('/', { templateUrl: 'partials/usecases.html' });
+	.when('/usecase', { templateUrl: 'partials/usecases.html' })
+    .when('/glossary', { templateUrl: 'partials/glossary.html' });
 }]);
 
 app.config( [

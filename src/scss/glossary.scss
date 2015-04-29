@@ -1,0 +1,77 @@
+.b-glossary {
+	.content-container {
+		margin-bottom: 340px;
+	}
+
+	.form-container {
+		height: 340px;
+		position: fixed;
+		bottom: 0px;
+		width: 100%;
+	}
+
+	.form {
+		padding: 2px 20px;
+	}
+
+	.toolbar {
+		margin-top: 10px;
+	}
+
+	.word-list-container {
+		background-color: rgba(100, 100, 100, 0.2);
+		overflow-y: auto;
+		direction: rtl; 
+	}
+
+	.word {
+		.word-word {
+			background-color: #039eb5;
+			color: white;
+			padding: 10px 20px;
+			padding-right: 25px;
+			font-weight: bold;
+
+			i {
+				float: left;
+				cursor: pointer;
+				margin-right: 10px;
+				margin-top: 3px;
+			}
+
+			i:hover {
+				color: #aed581;
+			}
+		}
+
+		.word-def {
+			padding: 10px 20px;
+			background-color: #80d8ff;
+		}
+
+		.word-tags {
+			background-color: #80d8ff;
+			padding: 15px;
+		}
+
+		.word-tag {
+			padding: 6px;
+			font-size: 11px;
+			border-radius: 40%;
+			margin-right: 5px;
+		}
+
+		.word-tag.syn {
+			background-color: #aed581;
+		}
+		.word-tag.ant {		
+			background-color: #d56e61;
+		}
+	}
+
+	.tex {
+		background-color: white;
+		padding: 10px;
+		overflow: auto;
+	}
+}
