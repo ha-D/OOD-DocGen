@@ -61,8 +61,8 @@
 	    	<md-button class="md-primary" ng-if="!state" ng-click="addWord()">Add</md-button>
 	    	<md-button class="md-primary" ng-if="!state" ng-click="clearForm()">Clear Form</md-button>
 	    	<md-button class="md-primary" ng-if="!state" ng-click="manualEditStart()">Edit Data</md-button>
-	    	<md-button class="md-primary" ng-if="state=='manual'" ng-click="manualEditSave()">Save</md-button>
-	    	<md-button class="md-primary" ng-if="state=='manual'" ng-click="manualEditCancel()">Cancel</md-button>
+	    	<md-button class="md-primary" ng-if="state=='edit'" ng-click="manualEditSave()">Save</md-button>
+	    	<md-button class="md-primary" ng-if="state=='edit'" ng-click="manualEditCancel()">Cancel</md-button>
 	    	<md-button class="md-primary" ng-if="!state" ng-click="renderTex()">Render Tex</md-button>
 	    	<md-button class="md-primary" ng-if="state=='tex'" ng-click="texCancel()">Cancel</md-button>
 	    	

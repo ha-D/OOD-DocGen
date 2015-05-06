@@ -1,11 +1,15 @@
 {{#each wordCategories}}
+\begin{center}
+\begin{huge}
 {{letter}}
+\end{huge}
+\end{center}
 {{#each words}}
 \begin{center}
-	\def\arraystretch{1.5}%
+	\def\arraystretch{1.4}%
 	\begin{tabularx}{\textwidth}{|r|X|}
 		\hline
-		\textbf{واٰژه}
+		\textbf{واژه}
 		&
 			{{word}}
 		\\ \hline
