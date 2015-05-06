@@ -43,7 +43,7 @@ function GlossaryPageCtrlImpl ($scope, $http, $timeout, $mdToast, store) {
 	};
 
 	$scope.manualEditStart = function () {
-		$scope.state = 'manual';
+		$scope.state = 'edit';
 		$scope.manual.content = angular.toJson($scope.words, 4);
 	};
 
