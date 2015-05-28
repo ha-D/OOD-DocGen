@@ -1,0 +1,83 @@
+<div class="b-glossary" ng-controller="CRCPageCtrl" >	
+	<div class="content-container">
+		<div ng-if="!state" class="word-list-container">
+			<div class="word" ng-repeat="word in words track by $index">
+				<div class="word-word">
+					<strong> {{word.className}} </strong>
+					<i class="fa fa-times" ng-click="removeWord($index)"></i>
+					<i class="fa fa-edit" ng-click="editWord(word)"></i>
+				</div>
+				<div class="word-def">
+					{{word.description}}
+				</div>
+				<div class="word-def">
+					{{word.superClass}}
+				</div>
+				<div class="word-tags">
+					<span class="word-tag syn" ng-repeat="syn in word.responsibilities track by $index">
+						{{syn}}
+					</span>
+					<span class="word-tag ant" ng-repeat="ant in word.collaborators track by $index">
+						{{ant}}
+					</span>
+				</div>
+			</div>
+		</div>
+		<div ng-if="state=='edit'">
+			<textarea style="width:100%;height:100%" ng-model="manual.content">
+			</textarea>
+		</div>
+		<div ng-if="state=='tex'" class="tex">
+			<pre>{{tex.content}}</pre>
+		</div>
+	</div>
+	<div class="form-container">
+	<md-content class="form">
+		<md-input-container style="margin-top:-10px;">
+			<label>Class</label>
+	  		<input type="text" ng-model="wordForm.className">
+
+		</md-input-container>
+		<md-input-container style="margin-top:-40px;">
+			<label>Description</label>
+	  		<textarea ng-model="wordForm.description"></textarea>
+		</md-input-container>
+		<md-input-container style="margin-top:-40px;margin-bottom:-30px">
+			<label>Super Class</label>
+	  		<textarea ng-model="wordForm.superClass"></textarea>
+		</md-input-container>
+		<md-chips 
+	 	ng-model="wordForm.responsibilities"
+	 	placeholder="Responsibilities"
+	 	secondary-placeholder="Responsibilities"
+	 	>
+			<md-chip-template>
+				<strong>{{$chip}}</strong>
+			</md-chip-template>
+    	</md-chips>
+    	<md-chips 
+	 	ng-model="wordForm.collaborators"
+	 	placeholder="Collaborators"
+	 	secondary-placeholder="Collaborators"
+	 	>
+			<md-chip-template>
+				<strong>{{$chip}}</strong>
+			</md-chip-template>
+    	</md-chips>
+
+    	<div class="toolbar">
+	    	<md-button class="md-primary" ng-if="!state" ng-click="addWord()">Add</md-button>
+	    	<md-button class="md-primary" ng-if="!state" ng-click="clearForm()">Clear Form</md-button>
+	    	<md-button class="md-primary" ng-if="!state" ng-click="manualEditStart()">Edit Data</md-button>
+	    	<md-button class="md-primary" ng-if="state=='edit'" ng-click="manualEditSave()">Save</md-button>
+	    	<md-button class="md-primary" ng-if="state=='edit'" ng-click="manualEditCancel()">Cancel</md-button>
+	    	<md-button class="md-primary" ng-if="!state" ng-click="renderTex()">Render Tex</md-button>
+	    	<md-button class="md-primary" ng-if="state=='tex'" ng-click="texCancel()">Cancel</md-button>
+	    	
+	    	<a ng-if="state=='tex'" ng-href="{{tex.link}}">Download Tex File</a>
+
+	    	<span style="float:right; padding-top: 10px;"> <strong>{{words.length}} words</strong>  </span>
+    	</div>
+	</md-content>
+</div>
+</div>
