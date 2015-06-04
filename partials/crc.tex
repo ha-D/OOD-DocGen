@@ -1,0 +1,42 @@
+{{#each words}}
+\begin{center}
+	\def\arraystretch{1.4}%
+	\begin{tabularx}{\textwidth}{|r|X|}
+		\hline
+		\textbf{نام کلاس}
+		&
+			{{className}}
+		\\ \hline
+		\textbf{توضیح}
+		&
+			{{description}}
+		\\ \hline
+		{{#if superClass}}
+		\textbf{کلاس پدر}
+		&
+			{{superClass}}
+		\\ \hline
+		{{/if}}
+		\textbf{مسئولیت‌ها}
+		&
+			{{#if responsibilities.length}}
+			\begin{itemize}[leftmargin=*,label={},noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt]
+			{{#each responsibilities}}
+				\item {{this}}
+			{{/each}}
+			\end{itemize}
+			{{/if}}
+		\\ \hline
+		\textbf{همکاران}
+		&
+			{{#if collaborators.length}}
+			\begin{itemize}[leftmargin=*,label={},noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt]
+			{{#each collaborators}}
+				\item {{this}}
+			{{/each}}
+			\end{itemize}
+			{{/if}}
+		\\ \hline
+	\end{tabularx}
+\end{center}
+{{/each}}
