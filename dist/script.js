@@ -383,46 +383,12 @@ app.controller('UseCaseEditJSONCtrl',['$scope', '$mdDialog', '$mdToast', 'data',
 		$scope.state = '';
 	};
 
+
 	$scope.renderTex = function () {
-		function categorize () {
-			var cats = {};
-
-			for (var i = 0; i < $scope.words.length; i++) {
-				var word = $scope.words[i];
-				if (!cats[word.word[0]]) {
-					cats[word.word[0]] = [];
-				}
-				cats[word.word[0]].push(word);
-			}
-
-			if (cats['آ']) {
-				if (cats['ا']) {
-					cats['ا'].push(cats['آ']);
-				} else {
-					cats['ا'] = cats['آ'];
-				}
-				delete cats['آ'];
-			}
-
-			var catList = [];
-			for (var key in cats) {
-				catList.push({
-					letter: key,
-					words: cats[key]
-				});
-			}
-
-			catList.sort(function (c1, c2) {
-				return c1.letter > c2.letter ? 1 : c1.letter < c2.letter ? -1 : 0;
-			});
-
-			return catList;
-		}
-
-		$http.get('partials/glossary.tex').success(function (source) {
+		$http.get('partials/crc.tex').success(function (source) {
 			var template = Handlebars.compile(source);
 			var words = $scope.words;
-			var content = template({wordCategories: categorize()});
+			var content = template({words: words});
 
 			$scope.tex.content = content;
 			$scope.tex.link =  encodeURIComponent(content);
