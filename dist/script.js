@@ -327,7 +327,7 @@ app.controller('UseCaseEditJSONCtrl',['$scope', '$mdDialog', '$mdToast', 'data',
 		responsibilities: [],
 		collaborators: []
 	};
-	
+
 	$scope.state = '';
 
 	$scope.manual = {
@@ -352,7 +352,7 @@ app.controller('UseCaseEditJSONCtrl',['$scope', '$mdDialog', '$mdToast', 'data',
 			$scope.words.push($scope.wordForm);
 			$scope.clearForm();
 			$scope.save();
-		}	
+		}
 	};
 
 	$scope.removeWord = function (index) {
@@ -409,7 +409,7 @@ app.controller('UseCaseEditJSONCtrl',['$scope', '$mdDialog', '$mdToast', 'data',
 	};
 
 	$scope.save = function () {
-		$scope.sort();
+		// $scope.sort();
 		store.save({key: 'crc', words: $scope.words});
 	};
 
