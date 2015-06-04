@@ -6,7 +6,7 @@ function CRCPageCtrlImpl ($scope, $http, $timeout, $mdToast, store) {
 		responsibilities: [],
 		collaborators: []
 	};
-	
+
 	$scope.state = '';
 
 	$scope.manual = {
@@ -31,7 +31,7 @@ function CRCPageCtrlImpl ($scope, $http, $timeout, $mdToast, store) {
 			$scope.words.push($scope.wordForm);
 			$scope.clearForm();
 			$scope.save();
-		}	
+		}
 	};
 
 	$scope.removeWord = function (index) {
@@ -88,7 +88,7 @@ function CRCPageCtrlImpl ($scope, $http, $timeout, $mdToast, store) {
 	};
 
 	$scope.save = function () {
-		$scope.sort();
+		// $scope.sort();
 		store.save({key: 'crc', words: $scope.words});
 	};
 
